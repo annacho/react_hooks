@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer, useRef } from 'react';
 import axios from 'axios';
 
 const todo = props => {
-  const [todoName, setTodoName] = useState('');
+  // const [todoName, setTodoName] = useState('');
   // const [submittedTodo, setSubmittedTodo] = useState(null);
   // const [todoList, setTodoList] = useState([]);
   // const [todoState, setTodoState] = useState({userInput: '', todoList: [] })
+
+  const todoInputEl = useRef();
 
   const todoListReducer = (state, action) => {
     switch(action.type) {
@@ -70,6 +72,8 @@ const todo = props => {
     //   todoList: todoState.todoList.concat(todoState.userInput)
     // });
 
+    const todoName = todoInputRef.current.value;
+
     axios
       .post('https://react-hooks-319f3.firebaseio.com/todos.json', {name: todoName})
       .then(res => {
@@ -97,9 +101,7 @@ const todo = props => {
       <input
         type="text"
         placeholder="Todo"
-        onChange={inputChangeHandler}
-        // value={todoState.userInput}
-        value={todoName}
+        ref={todoInputRef}
       />
       <button type="button" onClick={todoAddHandler}>Add</button>
       <ul>
