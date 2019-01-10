@@ -91,13 +91,13 @@ const todo = props => {
       .then(res => {
         setTimeout(() => {
           const todoItem = {id: res.data.name, name: todoName};
-          dispatch({ type: 'ADD', payload: todoItem);
+          dispatch({ type: 'ADD', payload: todoItem
         }, 3000);
+        });
       })
       .catch(err => {
         console.log(err);
       });
-  };
 
   const todoRemoverHandler = todoId => {
     axios
